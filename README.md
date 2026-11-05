@@ -1,65 +1,140 @@
-<!-- Meta Tags for GitHub Search & Web Indexing -->
-# How to Root Lava Play Ultra | One-Click Root Script (Linux)
+# ⚡ OneClickRoot — Lava Play Ultra
 
-> **The complete, automated root solution and custom script for Lava Play Ultra using Bash on Linux.**
+A simple cross-platform rooting toolkit for the **Lava Play Ultra**, supporting **Windows and Linux**.
 
-[![GitHub Stars](https://img.shields.io/github/stars/YOUR_USERNAME/YOUR_REPO_NAME?style=flat-square&logo=github)](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/YOUR_USERNAME/YOUR_REPO_NAME?style=flat-square&logo=github)](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/network/members)
-[![GitHub Issues](https://img.shields.io/github/issues/YOUR_USERNAME/YOUR_REPO_NAME?style=flat-square&logo=github)](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME/issues)
-
----
-
-## Overview
-
-This repository provides an automated **One-Click Root Script (`oneclickroot.sh`)** specifically designed for the **Lava Play Ultra** smartphone. Built natively for Linux environments, it automates unlocking, patched boot image installation, and Magisk root deployment via ADB and Fastboot platform tools.
-
-<div align="center">
-
-# ⚡ One-Click Root for Lava Play Ultra
-
-A streamlined Bash automation script to simplify the rooting process on the **Lava Play Ultra**.
-
-![Platform](https://img.shields.io/badge/Platform-Linux-orange?style=for-the-badge&logo=linux)
-![Shell](https://img.shields.io/badge/Language-Bash-4EAA25?style=for-the-badge&logo=gnu-bash)
-![Device](https://img.shields.io/badge/Device-Lava%20Play%20Ultra-blue?style=for-the-badge&logo=android)
-![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
-
-</div>
-
----
+It provides automated workflows for bootloader unlocking, Magisk, KernelSU, APatch, and root removal.
 
 > [!CAUTION]
-> **Disclaimer:** Rooting your device carries inherent risks, including potential data loss or bricking if steps are skipped. Proceed at your own risk. Always back up your important data first!
+> **Bootloader unlocking erases user data. Rooting can cause bootloops or device failure if incorrect files are used. Use at your own risk and back up your data before proceeding.**
 
----
+## 📱 Supported Device
 
-## 📋 System Requirements
+- Lava Play Ultra 5G
 
-* **OS:** Any Linux distribution *(Windows is currently **not supported**)*
-* **Tools:** ADB & Fastboot Platform Tools for Linux
-* **Device:** Lava Play Ultra (USB Debugging enabled)
+## 💻 Supported Platforms
 
----
+- 🪟 Windows
+- 🐧 Linux
 
-## ⚙️ Pre-requisites & Setup
+## 📦 Requirements
 
-Before running the script, complete these essential steps on your phone:
+### Windows
 
-1. Open **Settings** → **About Phone** → Tap **Build Number** 7 times to enable **Developer Options**.
-2. Go to **Settings** → **System** → **Developer Options**.
-3. Enable **OEM Unlocking**.
-4. Enable **USB Debugging**.
-5. Connect your device to your Linux machine via USB.
+- Python 3
+- ADB & Fastboot Platform Tools
+- USB debugging enabled
+- OEM unlocking enabled
 
----
+### Linux
 
-## 🚀 Quick Start Guide
+- Python 3
+- ADB & Fastboot Platform Tools
+- USB debugging enabled
+- OEM unlocking enabled
 
-Open your Linux terminal and run the following commands:
+## 🚀 Installation
 
-### 1. Clone the Repository
+Download the appropriate **`.tar.xz` release archive** from the GitHub Releases section and extract it.
+
+### Windows
+
+Open **PowerShell inside the extracted directory** and run:
+
+```powershell
+python oneclickroot.py
+```
+
+The Python launcher automatically detects Windows and runs `windows.ps1`.
+
+### Linux
+
+Open a terminal inside the extracted directory and run:
+
 ```bash
-git clone [https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git](https://github.com/YOUR_USERNAME/YOUR_REPO_NAME.git)
-cd YOUR_REPO_NAME
-chmod +x oneclickroot.sh
-bash oneclickroot.sh
+python3 oneclickroot.py
+```
+
+The launcher automatically detects Linux and runs `linux.sh`.
+
+If you get a permission error:
+
+```bash
+chmod +x linux.sh
+```
+
+Then run the Python launcher again.
+
+## 📋 Main Menu
+
+The launcher provides options for:
+
+```text
+1. 🔓 Unlock Bootloader
+2. 📦 Root Existing Unlocked Device
+   ├── Magisk
+   ├── KernelSU
+   └── APatch
+3. 🚀 Unlock Bootloader + Root
+4. 🗑️ Remove Root
+5. 🛠️ TWRP Personal Build
+0. ❌ Exit
+```
+
+Choose the required operation and follow the on-screen instructions.
+
+## 🔐 Root Managers
+
+Supported methods:
+
+- **Magisk**
+- **KernelSU**
+- **APatch**
+
+For an already-unlocked device, choose **Root Existing Unlocked Device** and select your preferred method.
+
+## 📦 Release Dependencies
+
+Device-specific dependencies and required images are distributed through the **GitHub Release archives** rather than stored directly in the source repository.
+
+Download the complete archive before running the tool.
+
+## ⚠️ Important
+
+- Unlocking the bootloader **wipes the device**.
+- Do not disconnect the USB cable while flashing.
+- Do not flash images from another device.
+- Keep the original stock firmware as a recovery option.
+- This project is intended for the **Lava Play Ultra**.
+
+## 📜 Open Source & Attribution
+
+This project is released under the **GNU General Public License (GPL)**.
+
+You are free to:
+
+- Use the project
+- Study the source code
+- Modify it
+- Redistribute it
+- Use it as the basis for your own project
+
+### Attribution Required
+
+If you use or modify this project, **credit the original author, FHM**, and clearly mention the original project/source.
+
+If you distribute a modified or derivative version, **keep it open source and release your modifications under the GNU GPL as required by the license**.
+
+Please do not remove the original copyright/license notices or present the original work as your own.
+
+## ⭐ Credits
+
+**Original Project:** OneClickRoot by FHM  
+**Device:** Lava Play Ultra
+
+If this project helped you, consider giving the repository a ⭐.
+
+---
+
+### ⚡ OneClickRoot by FHM
+
+**Open Source • Windows • Linux • Magisk • KernelSU • APatch**
