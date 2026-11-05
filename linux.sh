@@ -18,6 +18,7 @@ read -rp "Proceed only after you have confirmed the bootloader unlock on your de
 if [ "$CONFIRM" -eq 1 ]; then
 fastboot -s "$serial" --disable-verity --disable-verification flash vbmeta "dependencies/lavaplayultra/vbmeta/vbmeta.img"
 echo "Bootloader unlocked successfully"
+menu
 else
 menu
 fi
@@ -43,17 +44,23 @@ function  rootselection() {
             fastboot -s "$serial" --disable-verity --disable-verification flash vbmeta "dependencies/lavaplayultra/vbmeta/vbmeta.img"
             fastboot -s "$serial" flash init_boot_a "dependencies/lavaplayultra/rootmethods/magisk_20251111.img"
             fastboot -s "$serial" flash init_boot_b "dependencies/lavaplayultra/rootmethods/magisk_20251111.img"
+                 echo "Rooted device completely...please install root manager from the official sources"
             menu
             ;;
         2)
             fastboot -s "$serial" --disable-verity --disable-verification flash vbmeta "dependencies/lavaplayultra/vbmeta/vbmeta.img"
             fastboot -s "$serial" flash init_boot_a "dependencies/lavaplayultra/rootmethods/kernelsu_init.img"
             fastboot -s "$serial" flash init_boot_b "dependencies/lavaplayultra/rootmethods/kernelsu_init.img"
+                 echo "Rooted device completely...please install root manager from the official sources"
             menu
             ;;
         3)
-            echo "cooming soon"
-            rootselection
+            
+            fastboot -s "$serial" --disable-verity --disable-verification flash vbmeta "dependencies/lavaplayultra/vbmeta/vbmeta.img"
+            fastboot -s "$serial" flash boot_a "dependencies/lavaplayultra/rootmethods/apatch_patched_boot.img"
+            fastboot -s "$serial" flash boot_b "dependencies/lavaplayultra/rootmethods/apatch_patched_boot.img"
+             echo "Rooted device completely...please install root manager from the official sources"
+            menu
             ;;
         4)
             fastboot -s "$serial" flash init_boot_a "dependencies/lavaplayultra/rootmethods/init_boot.img"
@@ -88,6 +95,39 @@ printf "🎉 Root completed successfully!\n\n"
 
 }
 
+install_root_managers() {
+    printf "══════════════════════════════════════════════════════\n"
+    printf "Created by Fahim (@fahimfrk_)\n\n"
+    printf "⭐ If you found this tool helpful, consider giving it a GitHub star.\n"
+    printf "Your support helps improve the project.\n\n"
+    printf "Feel free to use, modify, and contribute to this script.\n"
+    printf "Let's add support for even more devices together!\n"
+    printf "══════════════════════════════════════════════════════\n"
+    
+    # Check for ADB connection and wait if missing
+    if ! adb get-state &>/dev/null; then
+        printf "⏳ Waiting for ADB device connection... (Ensure USB debugging is enabled)\n"
+        until adb get-state &>/dev/null; do
+            sleep 1
+        done
+        printf "✅ Device connected successfully!\n\n"
+    fi
+
+    printf "Choose a root manager:\n"
+    printf "1 - MAGISK\n"
+    printf "2 - KERNELSU\n"
+    printf "3 - APATCH\n"
+    
+    read -rp "Select an option: " rootapp
+    
+    case "$rootapp" in
+        1) adb install dependencies/rootmanager/magisk.apk ;;
+        2) adb install dependencies/rootmanager/kernelsu.apk ;;
+        3) adb install dependencies/rootmanager/apatch.apk ;;
+        *) printf "❌ Invalid option selected.\n" ;;
+    esac
+}
+
 
 function menu() {
 printf "\n"
@@ -104,7 +144,9 @@ printf "║ 3. 🚀 Unlock Bootloader + Root (Recommended)        ║\n"
 printf "║                                                      ║\n"
 printf "║ 4. 🗑️  Remove Root                                  ║\n"
 printf "║                                                      ║\n"
-printf "║ 0. ❌ Exit                                          ║\n"
+printf "║ 5. 🗑️  TWRP PERSONALBUILD INSTALL {COMING SOON}      ║\n"
+printf "║                                                      ║\n"
+printf "║ 0. ❌ Reboot and Install Rootmanagers                ║\n"
 printf "╚══════════════════════════════════════════════════════╝\n"
 read -rp "Select an option [0-3]: " choice
 
@@ -121,13 +163,14 @@ case "$choice" in
     4)
             fastboot -s "$serial" flash init_boot_a "dependencies/lavaplayultra/rootmethods/init_boot.img"
             fastboot -s "$serial" flash init_boot_b "dependencies/lavaplayultra/rootmethods/init_boot.img"
-            fastboot -s "$serial" flash vbmeta_a "dependencies/lavaplayultra/vbmeta/vbmeta.img"
-            fastboot -s "$serial" flash vbmeta_b "dependencies/lavaplayultra/vbmeta/vbmeta.img"
+            fastboot -s "$serial" flash boot_a "dependencies/lavaplayultra/rootmethods/boot.img"
+            fastboot -s "$serial" flash boot_b "dependencies/lavaplayultra/rootmethods/boot.img"
             echo "root removed completely"
             menu
         ;;
     0)
         fastboot -s "$serial" reboot
+        install_root_managers
         exit 0
         ;;
     *)
